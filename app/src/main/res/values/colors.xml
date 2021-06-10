@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="play">#ABD10D0D</color>
     <color name="FloatButton">#ABD10D0D</color>
+    <color name="toolbarBgr">#ABD10D0D</color>
 </resources>

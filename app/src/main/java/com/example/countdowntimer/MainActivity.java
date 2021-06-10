@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Thanh trạng thái trong suốt
+        setStatusBarTransparent();
 
         // ----------- ÁNH XẠ
         init ();
@@ -80,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // ============ I. CÁC FUNCTION XỬ LÝ ĐỒNG HỒ VÀ BUTTON CLICK
-
-
 
     // ------------ FUNCTION DÙNG ÁNH XẠ
     public void init () {
@@ -246,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                btnShort.setEnabled(false);
+                btnPoMoDoRo.setEnabled(false);
                 countDownButton.setEnabled(false);
             }
 
@@ -325,5 +330,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    // Thanh trạng thái trong suốt
+    private void setStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            View decorView = window.getDecorView();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 }

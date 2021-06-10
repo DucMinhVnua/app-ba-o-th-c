@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">To Do List</string>
+    <string name="edt_add">Công việc cần thêm</string>
+    <string name="btn_add">Thêm</string>
 </resources>
